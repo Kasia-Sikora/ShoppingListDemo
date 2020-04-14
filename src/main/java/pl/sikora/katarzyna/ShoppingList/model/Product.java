@@ -1,7 +1,5 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,15 +9,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name="products")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingUser {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,23 +25,15 @@ public class ShoppingUser {
     @NotNull
     @NotEmpty
     @NotBlank
-    private String login;
+    private String product_name;
 
     @NotNull
     @NotEmpty
     @NotBlank
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
+    private String department;
 
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String email;
-
-
-    public ShoppingUser(String login, String password, String email) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
+    public Product(String product_name, String department){
+        this.product_name = product_name;
+        this.department = department;
     }
 }

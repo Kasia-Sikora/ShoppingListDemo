@@ -14,18 +14,19 @@ import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.List;
 
-@Controller
-@EnableWebMvc
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ShoppingUserController{
 
     private ShoppingUserService service;
 
     @Autowired
-    ShoppingUserController(ShoppingUserService service) {
+    public ShoppingUserController(ShoppingUserService service) {
         this.service = service;
     }
 
 
+    @GetMapping("/users")
     public List<ShoppingUser> getAllUsers() {
         return this.service.getAllUsers();
     }
@@ -39,7 +40,8 @@ public class ShoppingUserController{
         }
     }
 
-    public ShoppingUser addUser(ShoppingUser user){
+    @PostMapping("/users")
+    public ShoppingUser addUser(@RequestBody ShoppingUser user){
             return this.service.addUser(user);
     }
 
