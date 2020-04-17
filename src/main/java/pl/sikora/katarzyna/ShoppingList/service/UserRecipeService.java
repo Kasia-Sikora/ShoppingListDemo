@@ -2,9 +2,7 @@ package pl.sikora.katarzyna.ShoppingList.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
-import pl.sikora.katarzyna.ShoppingList.repository.ShoppingUserRepository;
 import pl.sikora.katarzyna.ShoppingList.repository.UsersRecipeRepository;
 
 import java.util.List;
@@ -27,7 +25,9 @@ public class UserRecipeService {
         return this.repository.findById(id);
     }
 
-    public List<UsersRecipe> getAllRecipes() { return this.repository.findAll(); }
+    public List<UsersRecipe> getAllRecipes(Long id) {
+        return this.repository.findAll();
+    }
 
     public Object editRecipe(UsersRecipe recipe, Long recipe_id) {
         UsersRecipe existingRecipe = this.repository.getOne(recipe_id);
@@ -41,5 +41,9 @@ public class UserRecipeService {
 
     public boolean isRecipeIdExist(Long recipe_id) {
         return this.repository.existsById(recipe_id);
+    }
+
+    public Optional<UsersRecipe> findAllByUser_id(Long userId){
+        return this.repository.findAllByShoppingUser_Id(userId);
     }
 }

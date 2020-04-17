@@ -4,19 +4,16 @@ package pl.sikora.katarzyna.ShoppingList.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.service.ShoppingUserService;
 
-import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-public class ShoppingUserController{
+public class ShoppingUserController {
 
     private ShoppingUserService service;
 
@@ -41,8 +38,8 @@ public class ShoppingUserController{
     }
 
     @PostMapping("/users")
-    public ShoppingUser addUser(@RequestBody ShoppingUser user){
-            return this.service.addUser(user);
+    public ShoppingUser addUser(@RequestBody ShoppingUser user) {
+        return this.service.addUser(user);
     }
 
     @PutMapping("/users/{user_id}")
@@ -62,5 +59,4 @@ public class ShoppingUserController{
             throw new ValidationException("No user With this ID");
         }
     }
-
 }
