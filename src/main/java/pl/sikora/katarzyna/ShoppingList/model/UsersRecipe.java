@@ -1,26 +1,22 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
-import lombok.*;
-import org.hibernate.annotations.CollectionId;
-import org.springframework.data.domain.Auditable;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Set;
 
 
 @Entity
 @Table(name = "users_recipes")
-@EqualsAndHashCode(exclude = {"shoppingUser"}, callSuper = false)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 public class UsersRecipe {
 
     @Id
@@ -50,7 +46,7 @@ public class UsersRecipe {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
-    private ShoppingUser shoppingUser;
+    private ShoppingUser recipeOwner;
 
     public UsersRecipe(Long userId, String method, String picture) {
         this.user_id = userId;

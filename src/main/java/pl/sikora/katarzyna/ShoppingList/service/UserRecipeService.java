@@ -44,6 +44,6 @@ public class UserRecipeService {
     }
 
     public Optional<UsersRecipe> findAllByUser_id(Long userId){
-        return this.repository.findAllByShoppingUser_Id(userId);
+        return this.repository.findAllByRecipeOwner_Id(userId);
     }
 }

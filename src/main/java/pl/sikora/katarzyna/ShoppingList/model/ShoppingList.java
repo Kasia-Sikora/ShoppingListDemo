@@ -11,13 +11,11 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "shopping_lists")
-@EqualsAndHashCode(exclude = {"user"}, callSuper = false)
-@EntityListeners(AuditingEntityListener.class)
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingList implements Serializable {
+public class ShoppingList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

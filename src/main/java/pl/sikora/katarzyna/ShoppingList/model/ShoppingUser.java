@@ -23,8 +23,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@EqualsAndHashCode(exclude = {"shoppingLists"}, callSuper = false)
-@EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder
 @NoArgsConstructor
@@ -65,9 +63,9 @@ public class ShoppingUser {
             property = "id")
     private Set<ShoppingList> shoppingLists = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "recipeOwner")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "user_id")
-    private Set<UsersRecipe> recipes = new HashSet<>();
+    private Set<UsersRecipe> recipeOwner = new HashSet<>();
 }
