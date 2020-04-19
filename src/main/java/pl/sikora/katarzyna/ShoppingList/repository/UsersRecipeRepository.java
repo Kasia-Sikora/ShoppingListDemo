@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UsersRecipeRepository extends JpaRepository<UsersRecipe, Long> {
 
-    Optional<UsersRecipe> findAllByRecipeOwner_Id(Long userId);
+//    Optional<UsersRecipe> findAllByRecipeOwner_Id(Long userId);
 }

@@ -37,8 +37,8 @@ public class ShoppingUserController {
         }
     }
 
-    @PostMapping("/users")
-    public ShoppingUser addUser(@RequestBody ShoppingUser user) {
+    @PostMapping
+    public ShoppingUser addUser(ShoppingUser user) {
         return this.service.addUser(user);
     }
 

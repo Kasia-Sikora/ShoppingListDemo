@@ -1,5 +1,6 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,12 @@ public class Product {
     @NotEmpty
     @NotBlank
     private String department;
+
+
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "product_id", nullable = false)
+//    @JsonManagedReference(value = "products")
+//    private ShoppingList list;
 
     public Product(String product_name, String department){
         this.product_name = product_name;

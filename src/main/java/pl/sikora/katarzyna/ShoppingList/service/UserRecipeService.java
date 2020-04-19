@@ -43,7 +43,7 @@ public class UserRecipeService {
         return this.repository.existsById(recipe_id);
     }
 
-    public Optional<UsersRecipe> findAllByUser_id(Long userId){
-        return this.repository.findAllByRecipeOwner_Id(userId);
-    }
+//    public Optional<UsersRecipe> findAllByUser_id(Long userId){
+//        return this.repository.findAllByRecipeOwner_Id(userId);
+//    }
 }

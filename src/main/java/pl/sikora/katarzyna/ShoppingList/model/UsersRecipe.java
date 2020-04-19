@@ -1,5 +1,6 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,15 +26,6 @@ public class UsersRecipe {
     private Long id;
 
     @NotNull
-//    @NotEmpty
-//    @NotBlank
-    @Column(name = "user_id")
-    private Long user_id;
-
-//    @ManyToOne
-//    @JoinTable(name="users")
-
-    @NotNull
     private String title;
 
     @NotNull
@@ -44,15 +36,16 @@ public class UsersRecipe {
 
     private String picture;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
-    private ShoppingUser recipeOwner;
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
+//    @JsonManagedReference
+//    private ShoppingUser recipeOwner;
 
-    public UsersRecipe(Long userId, String method, String picture) {
-        this.user_id = userId;
-        this.method = method;
-        this.picture = picture;
-    }
+//    public UsersRecipe(Long userId, String method, String picture) {
+//        this.user_id = userId;
+//        this.method = method;
+//        this.picture = picture;
+//    }
 }
 
 

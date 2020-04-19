@@ -22,10 +22,10 @@ public class UserRecipeController {
     }
 
 
-    @GetMapping("/{user_id}/recipes")
-    public Optional<UsersRecipe> getAllRecipes(@PathVariable Long user_id) {
-        return this.service.findAllByUser_id(user_id);
-    }
+//    @GetMapping("/{user_id}/recipes")
+//    public Optional<UsersRecipe> getAllRecipes(@PathVariable Long user_id) {
+//        return this.service.findAllByUser_id(user_id);
+//    }
 
     @GetMapping("/recipes/{recipe_id}")
     public Object getUser(@PathVariable Long recipe_id) {
