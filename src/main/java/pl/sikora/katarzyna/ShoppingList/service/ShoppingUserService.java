@@ -47,4 +47,8 @@ public class ShoppingUserService {
     public boolean isUserIdExist(Long id) {
         return this.repository.existsById(id);
     }
+
+    public boolean isUserEmailExist(String email) {
+        return !this.repository.existsShoppingUserByEmail(email);
+    }
 }

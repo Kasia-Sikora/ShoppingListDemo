@@ -10,9 +10,7 @@ import org.hibernate.annotations.common.reflection.XProperty;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.*;
 
 @Entity
@@ -27,20 +25,17 @@ public class ShoppingUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @NotEmpty
-    @NotBlank
+    @NotNull(message = "Login has to be min 4")
+    @Size(min = 4, max = 15)
     private String login;
 
-    @NotNull
-    @NotEmpty
-    @NotBlank
+    @NotNull(message = "Password has to be min 6")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Size(min = 6, max = 15)
     private String password;
 
     @NotNull
-    @NotEmpty
-    @NotBlank
+    @Email(message = "E-mail has to be correct")
     private String email;
 
 

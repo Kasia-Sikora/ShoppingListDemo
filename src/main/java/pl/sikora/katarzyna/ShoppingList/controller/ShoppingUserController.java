@@ -59,4 +59,8 @@ public class ShoppingUserController {
             throw new ValidationException("No user With this ID");
         }
     }
+
+    public boolean checkIfEmailExist(String email) {
+        return this.service.isUserEmailExist(email);
+    }
 }
