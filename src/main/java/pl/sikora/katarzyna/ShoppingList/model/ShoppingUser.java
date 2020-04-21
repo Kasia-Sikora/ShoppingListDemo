@@ -31,7 +31,7 @@ public class ShoppingUser {
 
     @NotNull(message = "Password has to be min 6")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Size(min = 6, max = 15)
+    @Size(min = 6)
     private String password;
 
     @NotNull

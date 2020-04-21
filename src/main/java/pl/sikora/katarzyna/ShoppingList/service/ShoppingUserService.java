@@ -25,6 +25,10 @@ public class ShoppingUserService {
         return this.repository.findById(id);
     }
 
+    public ShoppingUser getUserByEmail(String email) {
+        return this.repository.getShoppingUserByEmail(email);
+    }
+
 //    public Optional<ShoppingUser> getUser(String login) {
 //        return this.repository.findByLogin(login);
 //    }
@@ -49,6 +53,6 @@ public class ShoppingUserService {
     }
 
     public boolean isUserEmailExist(String email) {
-        return !this.repository.existsShoppingUserByEmail(email);
+        return this.repository.existsShoppingUserByEmail(email);
     }
 }

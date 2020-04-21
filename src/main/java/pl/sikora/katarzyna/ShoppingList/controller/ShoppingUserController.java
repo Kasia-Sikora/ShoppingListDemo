@@ -37,6 +37,15 @@ public class ShoppingUserController {
         }
     }
 
+//    @PostMapping("/users/{email}")
+    public Object getUser(@PathVariable String email) {
+        if (this.service.isUserEmailExist(email)) {
+            return this.service.getUserByEmail(email);
+        } else {
+            return new ResponseEntity(email, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping
     public ShoppingUser addUser(ShoppingUser user) {
         return this.service.addUser(user);
