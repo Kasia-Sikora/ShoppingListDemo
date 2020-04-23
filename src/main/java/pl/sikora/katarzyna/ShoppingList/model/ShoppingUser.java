@@ -1,17 +1,21 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.common.reflection.XProperty;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.util.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -21,42 +25,42 @@ import java.util.*;
 @AllArgsConstructor
 public class ShoppingUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull(message = "Login has to be min 4")
-    @Size(min = 4, max = 15)
-    private String login;
-
-    @NotNull(message = "Password has to be min 6")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Size(min = 6)
-    private String password;
-
-    @NotNull
-    @Email(message = "E-mail has to be correct")
-    private String email;
-
-
     public ShoppingUser(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
-//    @JsonIdentityInfo(
-//            generator = ObjectIdGenerators.PropertyGenerator.class,
-//            property = "id")
-    private List<ShoppingList> shoppingLists = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipeOwner")
+    @NotNull(message = "Login must be at least 4 characters in length")
+    @Size(min = 4, max = 15)
+    private String login;
+
+    @NotNull(message = "Passwords must be at least 6 characters in length")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Size(min = 6)
+    private String password;
+
+    @NotNull
+    @Email(message = "E-mail must be correct")
+    private String email;
+
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
 //    @JsonBackReference
-//    @JsonIdentityInfo(
-//            generator = ObjectIdGenerators.PropertyGenerator.class,
-//            property = "user_id")
-//    private List<UsersRecipe> recipes = new ArrayList<>();
+////    @JsonIdentityInfo(
+////            generator = ObjectIdGenerators.PropertyGenerator.class,
+////            property = "id")
+//    private List<ShoppingList> shoppingLists = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipeOwner")
+    @JsonBackReference
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "user_id")
+    private List<UsersRecipe> recipes = new ArrayList<>();
 }

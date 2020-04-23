@@ -30,10 +30,10 @@ public class ShoppingList {
 
     Long shopping_list_id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonManagedReference
-    private ShoppingUser user;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "user_id", nullable = false)
+//    @JsonManagedReference
+//    private ShoppingUser user;
 
 //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "list")
 //    @JsonBackReference(value = "products")

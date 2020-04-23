@@ -25,7 +25,11 @@ public class UserRecipeService {
         return this.repository.findById(id);
     }
 
-    public List<UsersRecipe> getAllRecipes(Long id) {
+//    public List<UsersRecipe> getAllRecipes(Long id) {
+//        return this.repository.findAll();
+//    }
+
+    public List<UsersRecipe> getAllRecipes(){
         return this.repository.findAll();
     }
 
@@ -41,6 +45,10 @@ public class UserRecipeService {
 
     public boolean isRecipeIdExist(Long recipe_id) {
         return this.repository.existsById(recipe_id);
+    }
+
+    public List<UsersRecipe> findAllByUser_id(Long user_id) {
+        return this.repository.findAllByRecipeOwnerId(user_id);
     }
 
 //    public Optional<UsersRecipe> findAllByUser_id(Long userId){

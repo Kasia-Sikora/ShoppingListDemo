@@ -1,7 +1,4 @@
-package pl.sikora.katarzyna.ShoppingList.errorHandlers;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+package pl.sikora.katarzyna.ShoppingList.util.errorHandlers;
 
 
 public class DataValidationException extends RuntimeException {

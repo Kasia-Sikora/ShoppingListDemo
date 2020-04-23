@@ -8,7 +8,7 @@ import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
 import pl.sikora.katarzyna.ShoppingList.service.UserRecipeService;
 
 import javax.xml.bind.ValidationException;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -22,10 +22,15 @@ public class UserRecipeController {
     }
 
 
-//    @GetMapping("/{user_id}/recipes")
-//    public Optional<UsersRecipe> getAllRecipes(@PathVariable Long user_id) {
-//        return this.service.findAllByUser_id(user_id);
-//    }
+    @GetMapping("/{user_id}/recipes")
+    public List<UsersRecipe> getAllUsersRecipes(@PathVariable Long user_id) {
+        return this.service.findAllByUser_id(user_id);
+    }
+
+    @GetMapping("/recipes")
+    public List<UsersRecipe> getAllRecipes() {
+        return this.service.getAllRecipes();
+    }
 
     @GetMapping("/recipes/{recipe_id}")
     public Object getUser(@PathVariable Long recipe_id) {

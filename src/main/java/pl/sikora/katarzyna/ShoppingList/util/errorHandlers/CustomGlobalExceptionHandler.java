@@ -1,4 +1,4 @@
-package pl.sikora.katarzyna.ShoppingList.errorHandlers;
+package pl.sikora.katarzyna.ShoppingList.util.errorHandlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

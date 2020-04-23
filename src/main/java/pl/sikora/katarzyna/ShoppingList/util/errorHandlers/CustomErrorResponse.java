@@ -1,10 +1,9 @@
-package pl.sikora.katarzyna.ShoppingList.errorHandlers;
+package pl.sikora.katarzyna.ShoppingList.util.errorHandlers;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
 class CustomErrorResponse {

@@ -36,10 +36,10 @@ public class UsersRecipe {
 
     private String picture;
 
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
-//    @JsonManagedReference
-//    private ShoppingUser recipeOwner;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @JsonManagedReference
+    private ShoppingUser recipeOwner;
 
 //    public UsersRecipe(Long userId, String method, String picture) {
 //        this.user_id = userId;
