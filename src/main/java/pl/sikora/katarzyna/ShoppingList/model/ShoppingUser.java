@@ -1,10 +1,7 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -58,9 +55,6 @@ public class ShoppingUser {
 //    private List<ShoppingList> shoppingLists = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipeOwner")
-    @JsonBackReference
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "user_id")
+    @JsonManagedReference
     private List<UsersRecipe> recipes = new ArrayList<>();
 }

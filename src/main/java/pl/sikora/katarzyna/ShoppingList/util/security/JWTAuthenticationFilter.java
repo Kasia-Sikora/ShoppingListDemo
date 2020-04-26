@@ -41,7 +41,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            creds.getLogin(),
+                            creds.getEmail(),
                             creds.getPassword(),
                             new ArrayList<>())
             );
@@ -49,7 +49,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             throw new RuntimeException(e);
         }
     }
-
+// TODO response ShoppingUser
     @Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,

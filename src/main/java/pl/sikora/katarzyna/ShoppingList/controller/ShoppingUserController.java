@@ -1,14 +1,20 @@
 package pl.sikora.katarzyna.ShoppingList.controller;
 
 
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.service.ShoppingUserService;
+import pl.sikora.katarzyna.ShoppingList.util.errorHandlers.DataValidationException;
+import pl.sikora.katarzyna.ShoppingList.util.security.passwordEncoder.PasswordEncoderInterface;
 
+import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -16,10 +22,12 @@ import java.util.List;
 public class ShoppingUserController {
 
     private ShoppingUserService service;
+    private PasswordEncoderInterface passwordEncoder;
 
     @Autowired
-    public ShoppingUserController(ShoppingUserService service) {
+    public ShoppingUserController(ShoppingUserService service, PasswordEncoderInterface passwordEncoder) {
         this.service = service;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -28,6 +36,40 @@ public class ShoppingUserController {
         return this.service.getAllUsers();
     }
 
+    @PostMapping("/sign-up")
+    @ResponseBody
+    public ResponseEntity<ShoppingUser> checkRegisterForm(@Valid @RequestBody ShoppingUser user) throws DataValidationException {
+        System.out.println(user);
+        if (!checkIfEmailExist(user.getEmail())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            this.service.addUser(user);
+            return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
+        } else {
+            System.out.println("DataValidationException: There is already user with this e-mail address");
+            throw new DataValidationException("There is already user with this e-mail address");
+        }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ShoppingUser> identifySelf(Principal principal){
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getDetails());
+        return new ResponseEntity<>(this.service.getUserByEmail(principal.getName()), HttpStatus.OK);
+    }
+
+//    @PostMapping("/login")
+//    @ResponseBody
+//    public ResponseEntity<ShoppingUser> checkLoginForm(@RequestBody ShoppingUser user) throws DataValidationException {
+//        if (checkIfEmailExist(user.getEmail())) {
+//            ShoppingUser existingUser = (ShoppingUser) getUserByEmail(user.getEmail());
+//            if (passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+//                return new ResponseEntity<>(existingUser, HttpStatus.ACCEPTED);
+//            }
+//        }
+//        System.out.println("Wrong login or password");
+//        throw new DataValidationException("Wrong Login or password");
+//    }
+
+    //TODO remove object
     @GetMapping("/users/{user_id}")
     public Object getUserByEmail(@PathVariable Long user_id) {
         if (this.service.isUserIdExist(user_id)) {
@@ -45,10 +87,6 @@ public class ShoppingUserController {
         }
     }
 
-    @PostMapping
-    public ShoppingUser addUser(ShoppingUser user) {
-        return this.service.addUser(user);
-    }
 
     @PutMapping("/users/{user_id}")
     public ResponseEntity<ShoppingUser> editUser(@RequestBody ShoppingUser user, @PathVariable Long user_id) throws ValidationException {
