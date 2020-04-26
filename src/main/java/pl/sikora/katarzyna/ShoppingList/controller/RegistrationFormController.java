@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sikora.katarzyna.ShoppingList.util.errorHandlers.DataValidationException;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
-import pl.sikora.katarzyna.ShoppingList.util.passwordEncoder.PasswordEncoderInterface;
+import pl.sikora.katarzyna.ShoppingList.util.security.passwordEncoder.PasswordEncoderInterface;
 
 import javax.validation.Valid;
 
@@ -27,15 +27,14 @@ public class RegistrationFormController {
 
     @PostMapping("/users")
     @ResponseBody
-    public ResponseEntity<String> checkRegisterForm(@Valid ShoppingUser user) throws DataValidationException {
-        System.out.println(user);
+    public ResponseEntity<Object> checkRegisterForm(@Valid ShoppingUser user) throws DataValidationException {
         if (!controller.checkIfEmailExist(user.getEmail())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             controller.addUser(user);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
         } else {
-            System.out.println("DataValidationException: There is already user with that e-mail address");
-            throw new DataValidationException("There is already user with that e-mail address");
+            System.out.println("DataValidationException: There is already user with this e-mail address");
+            throw new DataValidationException("There is already user with this e-mail address");
         }
     }
 
@@ -43,7 +42,7 @@ public class RegistrationFormController {
     @ResponseBody
     public ResponseEntity<Object> checkLoginForm(@Valid String email, String password) throws DataValidationException {
         if (controller.checkIfEmailExist(email)) {
-            ShoppingUser existingUser = (ShoppingUser) controller.getUser(email);
+            ShoppingUser existingUser = (ShoppingUser) controller.getUserByEmail(email);
             if (passwordEncoder.matches(password, existingUser.getPassword())) {
                 return new ResponseEntity<>(existingUser, HttpStatus.ACCEPTED);
             }

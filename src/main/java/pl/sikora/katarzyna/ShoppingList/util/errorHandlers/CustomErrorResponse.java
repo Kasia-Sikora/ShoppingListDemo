@@ -11,7 +11,6 @@ class CustomErrorResponse {
     String errorCode;
     String errorMsg;
     int status;
-
     List<ObjectError> errorBindingMsg;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")

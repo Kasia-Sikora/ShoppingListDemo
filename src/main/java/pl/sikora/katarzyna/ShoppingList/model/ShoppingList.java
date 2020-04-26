@@ -23,11 +23,6 @@ public class ShoppingList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    //    @NotBlank
-//    @NotNull
-//    @NotEmpty
-//    Long user_id;
-
     Long shopping_list_id;
 
 //    @ManyToOne(fetch = FetchType.EAGER)

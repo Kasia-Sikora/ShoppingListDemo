@@ -29,7 +29,7 @@ public class ShoppingUserController {
     }
 
     @GetMapping("/users/{user_id}")
-    public Object getUser(@PathVariable Long user_id) {
+    public Object getUserByEmail(@PathVariable Long user_id) {
         if (this.service.isUserIdExist(user_id)) {
             return this.service.getUser(user_id);
         } else {
@@ -37,8 +37,7 @@ public class ShoppingUserController {
         }
     }
 
-//    @PostMapping("/users/{email}")
-    public Object getUser(@PathVariable String email) {
+    public Object getUserByEmail(@PathVariable String email) {
         if (this.service.isUserEmailExist(email)) {
             return this.service.getUserByEmail(email);
         } else {
@@ -65,7 +64,7 @@ public class ShoppingUserController {
         if (this.service.isUserIdExist(id)) {
             this.service.deleteUser(id);
         } else {
-            throw new ValidationException("No user With this ID");
+            throw new ValidationException("There is no user with this ID");
         }
     }
 

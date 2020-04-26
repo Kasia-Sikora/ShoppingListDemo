@@ -1,4 +1,4 @@
-package pl.sikora.katarzyna.ShoppingList.util.passwordEncoder;
+package pl.sikora.katarzyna.ShoppingList.util.security.passwordEncoder;
 
 public interface PasswordEncoderInterface {
 

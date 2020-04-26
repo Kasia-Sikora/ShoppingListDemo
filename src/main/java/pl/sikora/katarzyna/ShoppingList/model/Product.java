@@ -24,13 +24,9 @@ public class Product {
     private Long id;
 
     @NotNull
-    @NotEmpty
-    @NotBlank
     private String product_name;
 
     @NotNull
-    @NotEmpty
-    @NotBlank
     private String department;
 
 

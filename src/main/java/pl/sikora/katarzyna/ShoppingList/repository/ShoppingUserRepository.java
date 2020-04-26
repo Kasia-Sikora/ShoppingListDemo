@@ -6,6 +6,7 @@ import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 
 @Repository
 public interface ShoppingUserRepository extends JpaRepository<ShoppingUser, Long> {
+
     boolean existsShoppingUserByEmail(String email);
 
     ShoppingUser getShoppingUserByEmail(String email);

@@ -5,11 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sikora.katarzyna.ShoppingList.model.Product;
-import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.service.ProductService;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+
+//TODO add methods after join with recipes table
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -18,14 +19,16 @@ public class ProductController {
     private ProductService service;
 
     @Autowired
-    ProductController(ProductService service) { this.service = service; }
+    ProductController(ProductService service) {
+        this.service = service;
+    }
 
-    @GetMapping("/products")
+//    @GetMapping("/products")
     public List<Product> getAllProducts() {
         return this.service.getAllProducts();
     }
 
-    @GetMapping("/products/{product_id}")
+//    @GetMapping("/products/{product_id}")
     public Object getProduct(@PathVariable Long product_id) {
         if (this.service.isProductIdExist(product_id)) {
             return this.service.getProductById(product_id);
@@ -35,7 +38,7 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public Product addProduct(@RequestBody Product product){
+    public Product addProduct(@RequestBody Product product) {
         return this.service.addProduct(product);
     }
 

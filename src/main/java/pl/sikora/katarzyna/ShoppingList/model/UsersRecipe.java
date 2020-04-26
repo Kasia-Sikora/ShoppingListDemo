@@ -29,8 +29,6 @@ public class UsersRecipe {
     private String title;
 
     @NotNull
-    @NotEmpty
-    @NotBlank
     @Column(name = "method")
     private String method;
 
