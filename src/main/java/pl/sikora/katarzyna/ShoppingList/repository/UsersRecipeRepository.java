@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface UsersRecipeRepository extends JpaRepository<UsersRecipe, Long> {
 
     List<UsersRecipe> findAllByRecipeOwnerId(Long userId);
+
+    boolean existsByRecipeOwnerId(Long userId);
 }

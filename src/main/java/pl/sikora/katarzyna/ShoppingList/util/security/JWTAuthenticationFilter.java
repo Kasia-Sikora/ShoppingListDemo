@@ -49,7 +49,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             throw new RuntimeException(e);
         }
     }
-// TODO response ShoppingUser
+    // TODO response ShoppingUser
     @Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,

@@ -22,6 +22,13 @@ import java.util.List;
 @AllArgsConstructor
 public class ShoppingUser {
 
+    public ShoppingUser(Long id, String login, String password, String email) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+    }
+
     public ShoppingUser(String login, String password, String email) {
         this.login = login;
         this.password = password;

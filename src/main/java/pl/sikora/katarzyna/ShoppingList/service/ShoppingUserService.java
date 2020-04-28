@@ -17,8 +17,8 @@ public class ShoppingUserService {
         this.repository = repository;
     }
 
-    public ShoppingUser addUser(ShoppingUser user) {
-        return this.repository.save(user);
+    public List<ShoppingUser> getAllUsers() {
+        return this.repository.findAll();
     }
 
     public Optional<ShoppingUser> getUser(Long id) {
@@ -29,19 +29,15 @@ public class ShoppingUserService {
         return this.repository.getShoppingUserByEmail(email);
     }
 
-//    public Optional<ShoppingUser> getUser(String login) {
-//        return this.repository.findByLogin(login);
-//    }
-
-    public List<ShoppingUser> getAllUsers() {
-        return this.repository.findAll();
+    public ShoppingUser addUser(ShoppingUser user) {
+        return this.repository.save(user);
     }
+
 
     public ShoppingUser editUser(ShoppingUser user, Long id) {
         ShoppingUser existingUser = this.repository.getOne(id);
         BeanUtils.copyProperties(user, existingUser, "id");
         return this.repository.saveAndFlush(existingUser);
-
     }
 
     public void deleteUser(Long id) {

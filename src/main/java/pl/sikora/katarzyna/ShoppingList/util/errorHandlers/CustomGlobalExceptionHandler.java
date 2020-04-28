@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class CustomGlobalExceptionHandler {
@@ -26,6 +27,14 @@ public class CustomGlobalExceptionHandler {
         error.setTimestamp(LocalDateTime.now());
         error.setStatus((HttpStatus.NOT_FOUND.value()));
         return new ResponseEntity<>(error.getErrorBindingMsg().get(0).getDefaultMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> handleGenericNotFoundException(NoSuchElementException e){
+        CustomErrorResponse error = new CustomErrorResponse("NOT_FOUND_ERROR", e.getMessage());
+        error.setTimestamp(LocalDateTime.now());
+        error.setStatus((HttpStatus.NOT_FOUND.value()));
+        return new ResponseEntity<>(error.getErrorMsg(), HttpStatus.NOT_FOUND);
     }
 
 }

@@ -5,26 +5,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.repository.ShoppingUserRepository;
 
-import static java.util.Collections.emptyList;
+import java.util.Collections;
 
 @Service
 public class ShoppingUserDetailsServiceImpl implements UserDetailsService {
 
-    private ShoppingUserRepository applicationUserRepository;
+    private ShoppingUserRepository repository;
 
     public ShoppingUserDetailsServiceImpl(ShoppingUserRepository applicationUserRepository) {
-        this.applicationUserRepository = applicationUserRepository;
+        this.repository = applicationUserRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        ShoppingUser applicationUser = applicationUserRepository.getShoppingUserByEmail(email);
-        if (applicationUser == null) {
+        ShoppingUser user = repository.getShoppingUserByEmail(email);
+        if (StringUtils.isEmpty(email)) {
             throw new UsernameNotFoundException(email);
         }
-        return new User(applicationUser.getLogin(), applicationUser.getPassword(), emptyList());
+        return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }
 }

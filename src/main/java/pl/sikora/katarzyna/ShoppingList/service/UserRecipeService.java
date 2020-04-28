@@ -47,8 +47,12 @@ public class UserRecipeService {
         return this.repository.existsById(recipe_id);
     }
 
-    public List<UsersRecipe> findAllByUser_id(Long user_id) {
+    public List<UsersRecipe> findAllByUserId(Long user_id) {
         return this.repository.findAllByRecipeOwnerId(user_id);
+    }
+
+    public boolean isRecipeOwnerExist(Long user_id) {
+        return this.repository.existsByRecipeOwnerId(user_id);
     }
 
 //    public Optional<UsersRecipe> findAllByUser_id(Long userId){
