@@ -37,12 +37,12 @@ class ShoppingUserControllerTest {
         Assertions.assertEquals(2, shoppingUserController.getAllUsers().size());
     }
 
-    @Test
-    public void addUserTest() {
-        ShoppingUser user = new ShoppingUser((long) 1, "Christopher", "Moore", "wdd@khef.pl");
-        Mockito.when(service.addUser(user)).thenReturn(user);
-        Assertions.assertEquals(new ResponseEntity<>(user, HttpStatus.ACCEPTED), shoppingUserController.addUser(user));
-    }
+//    @Test
+//    public void addUserTest() {
+//        ShoppingUser user = new ShoppingUser((long) 1, "Christopher", "Moore", "wdd@khef.pl");
+//        Mockito.when(service.addUser(user)).thenReturn(user);
+//        Assertions.assertEquals(new ResponseEntity<>(user, HttpStatus.ACCEPTED), shoppingUserController.addUser(user));
+//    }
 
     @Test
     void identifySelf() {

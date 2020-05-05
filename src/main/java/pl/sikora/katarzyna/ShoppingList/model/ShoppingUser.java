@@ -1,11 +1,9 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -53,14 +51,15 @@ public class ShoppingUser {
     private String email;
 
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 //    @OnDelete(action = OnDeleteAction.CASCADE)
 //    @JsonBackReference
 ////    @JsonIdentityInfo(
 ////            generator = ObjectIdGenerators.PropertyGenerator.class,
 ////            property = "id")
 //    private List<ShoppingList> shoppingLists = new ArrayList<>();
-
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipeOwner")
     @JsonManagedReference
     private List<UsersRecipe> recipes = new ArrayList<>();

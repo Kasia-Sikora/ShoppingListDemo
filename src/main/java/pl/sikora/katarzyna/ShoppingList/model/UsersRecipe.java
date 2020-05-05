@@ -2,10 +2,8 @@ package pl.sikora.katarzyna.ShoppingList.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -35,8 +33,12 @@ public class UsersRecipe {
 
     private String picture;
 
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     @JsonBackReference
     private ShoppingUser recipeOwner;
 

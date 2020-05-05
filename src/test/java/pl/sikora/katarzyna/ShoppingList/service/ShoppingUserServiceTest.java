@@ -44,13 +44,13 @@ public class ShoppingUserServiceTest {
         Assertions.assertNotEquals(3, service.getAllUsers().size());
     }
 
-    @Test
-    public void getUserByEmailTest() {
-        String email = "kasia@kasia.com";
-        Mockito.when(repository.getShoppingUserByEmail(email)).thenReturn(
-                new ShoppingUser((long) 1, "Kasia", "Katarzyna", "kasia@kasia.com"));
-        Assertions.assertEquals("Kasia", service.getUserByEmail(email).getLogin());
-    }
+//    @Test
+//    public void getUserByEmailTest() {
+//        String email = "kasia@kasia.com";
+//        Mockito.when(repository.getShoppingUserByEmail(email)).thenReturn(
+//                new ShoppingUser((long) 1, "Kasia", "Katarzyna", "kasia@kasia.com"));
+//        Assertions.assertEquals("Kasia", service.getUserByEmail(email).getLogin());
+//    }
 
     @Test
     public void getUserByEmailTest_NotFound() {

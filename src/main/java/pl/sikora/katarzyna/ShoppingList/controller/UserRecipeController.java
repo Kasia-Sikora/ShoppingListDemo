@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
+import pl.sikora.katarzyna.ShoppingList.repository.ShoppingUserRepository;
+import pl.sikora.katarzyna.ShoppingList.service.ShoppingUserProjection;
+import pl.sikora.katarzyna.ShoppingList.service.ShoppingUserService;
 import pl.sikora.katarzyna.ShoppingList.service.UserRecipeService;
 
 import javax.xml.bind.ValidationException;
@@ -15,10 +19,12 @@ import java.util.List;
 public class UserRecipeController {
 
     private UserRecipeService service;
+    private ShoppingUserService userService;
 
     @Autowired
-    UserRecipeController(UserRecipeService service) {
+    UserRecipeController(UserRecipeService service, ShoppingUserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
 
@@ -45,7 +51,10 @@ public class UserRecipeController {
     }
 
     @PostMapping("/{user_id}/recipes")
-    public UsersRecipe addRecipe(@RequestBody UsersRecipe recipe, @PathVariable String user_id) {
+    public UsersRecipe addRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long user_id) {
+        ShoppingUser user = userService.getUserById(user_id);
+        recipe.setRecipeOwner(user);
+        System.out.println(recipe);
         return this.service.addRecipe(recipe);
     }
 
