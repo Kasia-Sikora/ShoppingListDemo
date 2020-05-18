@@ -21,8 +21,8 @@ public class UserRecipeService {
         return this.repository.save(recipe);
     }
 
-    public Optional<UsersRecipe> getRecipe(Long id) {
-        return this.repository.findById(id);
+    public UsersRecipe getRecipe(Long id) {
+        return this.repository.getOne(id);
     }
 
 //    public List<UsersRecipe> getAllRecipes(Long id) {

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -53,6 +54,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         configuration.applyPermitDefaultValues();
         configuration.setExposedHeaders(Collections.singletonList(SecurityConstants.HEADER_STRING));
         configuration.addAllowedHeader(SecurityConstants.HEADER_STRING);
+        configuration.addAllowedMethod("DELETE");
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

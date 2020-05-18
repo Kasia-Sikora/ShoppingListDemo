@@ -3,11 +3,10 @@ package pl.sikora.katarzyna.ShoppingList.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
-import pl.sikora.katarzyna.ShoppingList.repository.ShoppingUserRepository;
-import pl.sikora.katarzyna.ShoppingList.service.ShoppingUserProjection;
 import pl.sikora.katarzyna.ShoppingList.service.ShoppingUserService;
 import pl.sikora.katarzyna.ShoppingList.service.UserRecipeService;
 
@@ -30,7 +29,9 @@ public class UserRecipeController {
 
     @GetMapping("/{user_id}/recipes")
     public List<UsersRecipe> getAllUsersRecipes(@PathVariable Long user_id) {
-        if(this.service.isRecipeOwnerExist(user_id)) {
+        System.out.println(user_id);
+        if (this.service.isRecipeOwnerExist(user_id)) {
+            System.out.println(this.service.findAllByUserId(user_id).toString());
             return this.service.findAllByUserId(user_id);
         }
         return null;
@@ -68,12 +69,16 @@ public class UserRecipeController {
     }
 
     @DeleteMapping("/{user_id}/recipes/{recipe_id}")
-    public void deleteUser(@PathVariable Long recipe_id, @PathVariable String user_id) throws ValidationException {
+    public void deleteUser(@PathVariable Long recipe_id, @PathVariable Long user_id) throws ValidationException {
+        System.out.println("deleting");
+        System.out.println("recipe id: " + recipe_id);
         if (this.service.isRecipeIdExist(recipe_id)) {
+            UsersRecipe recipe = this.service.getRecipe(recipe_id);
             this.service.deleteRecipe(recipe_id);
+            this.userService.getUserById(user_id).getRecipes().remove(recipe);
+            recipe.setRecipeOwner(null);
         } else {
-            throw new ValidationException("No user With this ID");
+            throw new ValidationException("No recipe With this ID");
         }
     }
-
 }

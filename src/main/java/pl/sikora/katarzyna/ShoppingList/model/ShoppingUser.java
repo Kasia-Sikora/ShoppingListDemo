@@ -60,7 +60,7 @@ public class ShoppingUser {
 //    private List<ShoppingList> shoppingLists = new ArrayList<>();
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recipeOwner")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipeOwner")
     @JsonManagedReference
     private List<UsersRecipe> recipes = new ArrayList<>();
 }

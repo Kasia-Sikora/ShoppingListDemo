@@ -39,13 +39,14 @@ public class ShoppingUserController {
 
     @PostMapping("/sign-up")
     @ResponseBody
-    public ResponseEntity<ShoppingUser> addUser(@Valid @RequestBody ShoppingUser user, Errors errors) throws DataValidationException {
+    public ResponseEntity<ShoppingUserProjection> addUser(@Valid @RequestBody ShoppingUser user, Errors errors) throws DataValidationException {
         System.out.println(user);
         if(!errors.hasErrors()) {
             if (!checkIfEmailExist(user.getEmail())) {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 this.service.addUser(user);
-                return new ResponseEntity<>(user, HttpStatus.OK);
+                ShoppingUserProjection userProjection = this.service.getUserByEmail(user.getEmail());
+                return new ResponseEntity<>(userProjection, HttpStatus.OK);
             } else {
                 throw new DataValidationException("There is already user with this e-mail address");
             }
@@ -56,6 +57,7 @@ public class ShoppingUserController {
     @GetMapping("/me")
     @ResponseBody
     public ResponseEntity<ShoppingUserProjection> identifySelf(Principal principal) {
+        System.out.println(principal.getName());
         ShoppingUserProjection user = this.service.getUserByEmail(principal.getName());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

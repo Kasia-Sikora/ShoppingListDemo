@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,13 +35,14 @@ public class UsersRecipe {
 
     private String picture;
 
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     @JsonBackReference
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ShoppingUser recipeOwner;
 
 //    public UsersRecipe(Long userId, String method, String picture) {
