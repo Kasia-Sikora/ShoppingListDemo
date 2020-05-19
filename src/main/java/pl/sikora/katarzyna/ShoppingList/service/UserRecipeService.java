@@ -35,7 +35,7 @@ public class UserRecipeService {
 
     public Object editRecipe(UsersRecipe recipe, Long recipe_id) {
         UsersRecipe existingRecipe = this.repository.getOne(recipe_id);
-        BeanUtils.copyProperties(recipe, existingRecipe, "id");
+        BeanUtils.copyProperties(recipe, existingRecipe, "id", "recipeOwner");
         return this.repository.saveAndFlush(existingRecipe);
     }
 

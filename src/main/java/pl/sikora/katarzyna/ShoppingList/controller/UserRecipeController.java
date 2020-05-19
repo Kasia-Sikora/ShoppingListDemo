@@ -31,7 +31,7 @@ public class UserRecipeController {
     public List<UsersRecipe> getAllUsersRecipes(@PathVariable Long user_id) {
         System.out.println(user_id);
         if (this.service.isRecipeOwnerExist(user_id)) {
-            System.out.println(this.service.findAllByUserId(user_id).toString());
+//            System.out.println(this.service.findAllByUserId(user_id).toString());
             return this.service.findAllByUserId(user_id);
         }
         return null;
@@ -61,6 +61,8 @@ public class UserRecipeController {
 
     @PutMapping("/{user_id}/recipes/{recipe_id}")
     public ResponseEntity<UsersRecipe> editRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long recipe_id, @PathVariable String user_id) throws ValidationException {
+        System.out.println("editing: " + recipe_id);
+        System.out.println(recipe.toString());
         if (this.service.isRecipeIdExist(recipe_id)) {
             return new ResponseEntity(this.service.editRecipe(recipe, recipe_id), HttpStatus.OK);
         } else {
@@ -70,8 +72,6 @@ public class UserRecipeController {
 
     @DeleteMapping("/{user_id}/recipes/{recipe_id}")
     public void deleteUser(@PathVariable Long recipe_id, @PathVariable Long user_id) throws ValidationException {
-        System.out.println("deleting");
-        System.out.println("recipe id: " + recipe_id);
         if (this.service.isRecipeIdExist(recipe_id)) {
             UsersRecipe recipe = this.service.getRecipe(recipe_id);
             this.service.deleteRecipe(recipe_id);
