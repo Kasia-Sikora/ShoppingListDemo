@@ -1,4 +1,4 @@
-package pl.sikora.katarzyna.ShoppingList.service;
+package pl.sikora.katarzyna.ShoppingList.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;

@@ -13,11 +13,10 @@ import java.util.List;
 //TODO add methods after join with recipes table
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = {"http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
 public class ProductController {
 
-    private ProductService service;
+    private final ProductService service;
 
     @Autowired
     ProductController(ProductService service) {

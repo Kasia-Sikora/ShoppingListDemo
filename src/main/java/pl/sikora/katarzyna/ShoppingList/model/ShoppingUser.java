@@ -18,7 +18,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingUser {
+public class ShoppingUser implements ShoppingUserProjection {
 
     public ShoppingUser(Long id, String login, String password, String email) {
         this.id = id;

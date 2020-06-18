@@ -8,11 +8,10 @@ import pl.sikora.katarzyna.ShoppingList.service.ShoppingListService;
 
 //TODO add methods after join users table and products table
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = {"http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
 public class ShoppingListController {
 
-    private ShoppingListService service;
+    private final ShoppingListService service;
 
     @Autowired
     ShoppingListController(ShoppingListService service) {

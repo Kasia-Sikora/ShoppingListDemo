@@ -1,42 +1,55 @@
 package pl.sikora.katarzyna.ShoppingList.service;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
+import pl.sikora.katarzyna.ShoppingList.model.ShoppingUserProjection;
 import pl.sikora.katarzyna.ShoppingList.repository.ShoppingUserRepository;
+import pl.sikora.katarzyna.ShoppingList.util.errorHandlers.DataValidationException;
+import pl.sikora.katarzyna.ShoppingList.util.security.passwordEncoder.PasswordEncoderInterface;
 
+import javax.xml.bind.ValidationException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ShoppingUserService {
+public class ShoppingUserService implements UserDetailsService {
 
-    private ShoppingUserRepository repository;
+    private final ShoppingUserRepository repository;
+    private final PasswordEncoderInterface passwordEncoder;
 
-    public ShoppingUserService(ShoppingUserRepository repository) {
+    public ShoppingUserService(ShoppingUserRepository repository, PasswordEncoderInterface passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<ShoppingUser> getAllUsers() {
         return this.repository.findAll();
     }
 
-    public Optional<ShoppingUser> getUser(Long id) {
-        return this.repository.findById(id);
-    }
-
     public ShoppingUser getUserById(Long id) {
         return this.repository.getShoppingUserById(id);
     }
 
-    public ShoppingUserProjection getUserByEmail(String email) {
+    public ShoppingUser getUserByEmail(String email) {
         return this.repository.getShoppingUserByEmail(email);
     }
 
     public ShoppingUser addUser(ShoppingUser user) {
-        return this.repository.save(user);
+        if (!checkIfEmailExist(user.getEmail())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return this.repository.save(user);
+        } else {
+            throw new DataValidationException("There is already user with this e-mail address");
+        }
     }
-
 
     public ShoppingUser editUser(ShoppingUser user, Long id) {
         ShoppingUser existingUser = this.repository.getOne(id);
@@ -44,19 +57,28 @@ public class ShoppingUserService {
         return this.repository.saveAndFlush(existingUser);
     }
 
-    public void deleteUser(Long id) {
-        this.repository.deleteById(id);
+    public void deleteUser(Long id) throws ValidationException {
+        if (isUserIdExist(id)) {
+            this.repository.deleteById(id);
+        } else {
+            throw new ValidationException("There is no user with this ID");
+        }
     }
 
     public boolean isUserIdExist(Long id) {
         return this.repository.existsById(id);
     }
 
-    public boolean isUserEmailExist(String email) {
+    public boolean checkIfEmailExist(String email) {
         return this.repository.existsShoppingUserByEmail(email);
     }
 
-    public ShoppingUserProjection getUserProjection(Long user_id) {
-        return this.repository.findShoppingUserById(user_id);
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        ShoppingUserProjection user = repository.getShoppingUserByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException(email);
+        }
+        return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }
 }

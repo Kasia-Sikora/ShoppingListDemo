@@ -45,11 +45,6 @@ public class UsersRecipe {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ShoppingUser recipeOwner;
 
-//    public UsersRecipe(Long userId, String method, String picture) {
-//        this.user_id = userId;
-//        this.method = method;
-//        this.picture = picture;
-//    }
 }
 
 
