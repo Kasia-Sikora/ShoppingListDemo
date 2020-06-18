@@ -3,7 +3,6 @@ package pl.sikora.katarzyna.ShoppingList.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
@@ -14,7 +13,7 @@ import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
 public class UserRecipeController {
 
     private UserRecipeService service;
@@ -55,14 +54,11 @@ public class UserRecipeController {
     public UsersRecipe addRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long user_id) {
         ShoppingUser user = userService.getUserById(user_id);
         recipe.setRecipeOwner(user);
-        System.out.println(recipe);
         return this.service.addRecipe(recipe);
     }
 
     @PutMapping("/{user_id}/recipes/{recipe_id}")
     public ResponseEntity<UsersRecipe> editRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long recipe_id, @PathVariable String user_id) throws ValidationException {
-        System.out.println("editing: " + recipe_id);
-        System.out.println(recipe.toString());
         if (this.service.isRecipeIdExist(recipe_id)) {
             return new ResponseEntity(this.service.editRecipe(recipe, recipe_id), HttpStatus.OK);
         } else {
