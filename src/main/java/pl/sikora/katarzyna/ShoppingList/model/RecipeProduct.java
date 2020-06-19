@@ -7,39 +7,40 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="products")
+@Table(name = "user_recipe_products")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class RecipeProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotNull
-    private String product_name;
+    private String unit;
 
     @NotNull
-    private String department;
-
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "product_id", nullable = false)
-//    @JsonManagedReference(value = "products")
-//    private ShoppingList list;
+    private int quantity;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "product")
-//    @JoinColumn(name = "id", nullable = false, updatable = false)
-    @JsonManagedReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    @JsonBackReference
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private RecipeProduct recipeProduct;
+    private ShoppingUser recipeOwner;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false, updatable = false)
+    @JsonBackReference
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product product;
 }

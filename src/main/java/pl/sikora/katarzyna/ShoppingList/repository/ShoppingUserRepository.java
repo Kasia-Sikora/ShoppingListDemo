@@ -13,5 +13,4 @@ public interface ShoppingUserRepository extends JpaRepository<ShoppingUser, Long
 
     ShoppingUser getShoppingUserById(Long id);
 
-    ShoppingUser findShoppingUserById(Long id);
 }

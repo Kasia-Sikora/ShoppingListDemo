@@ -22,8 +22,8 @@ import java.util.Collections;
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    private ShoppingUserService userDetailsService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ShoppingUserService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public WebSecurity(ShoppingUserService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userDetailsService;

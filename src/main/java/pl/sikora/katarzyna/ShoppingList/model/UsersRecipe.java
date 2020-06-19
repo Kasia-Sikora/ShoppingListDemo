@@ -33,18 +33,16 @@ public class UsersRecipe {
     @Column(name = "method")
     private String method;
 
+
     private String picture;
 
-//
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-//    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     @JsonBackReference
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ShoppingUser recipeOwner;
-
 }
 
 
