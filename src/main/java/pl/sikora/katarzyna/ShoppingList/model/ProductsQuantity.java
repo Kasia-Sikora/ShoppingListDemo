@@ -1,7 +1,7 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,37 +10,38 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "user_recipe_products")
+@Table(name = "products_quantity")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecipeProduct {
+public class ProductsQuantity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @NotNull
     private String unit;
 
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    private Long product_id;
+
     @NotNull
     private int quantity;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    @JsonBackReference
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private ShoppingUser recipeOwner;
+    private String department;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false, updatable = false)
-    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "user_recipe_id", nullable = false, updatable = false)
+    @JsonBackReference(value = "productsQuantity")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    private UsersRecipe recipe;
+
+    @OneToOne
+    @JoinColumn(name = "product_id", updatable = false)
     private Product product;
 }

@@ -2,15 +2,14 @@ package pl.sikora.katarzyna.ShoppingList.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -40,9 +39,23 @@ public class UsersRecipe {
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "recipes")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ShoppingUser recipeOwner;
+
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipe")
+    @JsonManagedReference(value = "productsQuantity")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<ProductsQuantity> productsQuantity;
+
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipe")
+//    @JsonManagedReference
+//    private List<Product> products = new ArrayList<>();
+
 }
 
 

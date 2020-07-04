@@ -23,12 +23,12 @@ public class ProductController {
         this.service = service;
     }
 
-//    @GetMapping("/products")
+    @GetMapping("/products")
     public List<Product> getAllProducts() {
         return this.service.getAllProducts();
     }
 
-//    @GetMapping("/products/{product_id}")
+    //    @GetMapping("/products/{product_id}")
     public Object getProduct(@PathVariable Long product_id) {
         if (this.service.isProductIdExist(product_id)) {
             return this.service.getProductById(product_id);
@@ -37,8 +37,10 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/products")
+    @PostMapping("/product")
     public Product addProduct(@RequestBody Product product) {
+        System.out.println(product.toString());
+        System.out.println(this.service.addProduct(product));
         return this.service.addProduct(product);
     }
 

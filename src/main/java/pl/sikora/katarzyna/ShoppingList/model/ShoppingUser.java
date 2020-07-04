@@ -23,19 +23,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ShoppingUser implements ShoppingUserProjection {
 
-//    public ShoppingUser(Long id, String login, String password, String email) {
-//        this.id = id;
-//        this.login = login;
-//        this.password = password;
-//        this.email = email;
-//    }
-//
-//    public ShoppingUser(String login, String password, String email) {
-//        this.login = login;
-//        this.password = password;
-//        this.email = email;
-//    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -64,13 +51,7 @@ public class ShoppingUser implements ShoppingUserProjection {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipeOwner")
-    @JsonManagedReference
+    @JsonManagedReference(value = "recipes")
     private List<UsersRecipe> recipes = new ArrayList<>();
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipeOwner")
-    @JsonManagedReference
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private RecipeProduct recipeProduct;
 }

@@ -6,4 +6,12 @@ import pl.sikora.katarzyna.ShoppingList.model.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+//    boolean existsByProduct_name(String productName);
+
+    boolean existsById(Long id);
+
+    boolean existsProductByName(String productName);
+
+    Product getProductByName(String productName);
 }

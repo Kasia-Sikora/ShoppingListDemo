@@ -10,14 +10,18 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private ProductRepository repository;
+    private final ProductRepository repository;
 
     public ProductService(ProductRepository repository) {
         this.repository = repository;
     }
 
     public Product addProduct(Product product) {
-        return this.repository.save(product);
+        product.setName(product.getName().toLowerCase());
+        if (!isProductNameExist(product.getName().toLowerCase())) {
+            this.repository.save(product);
+        }
+        return this.repository.getProductByName(product.getName());
     }
 
     public List<Product> getAllProducts() {
@@ -38,7 +42,21 @@ public class ProductService {
         this.repository.deleteById(product_id);
     }
 
+    public boolean isProductNameExist(String productName) {
+        if (productName != null) {
+            return this.repository.existsProductByName(productName);
+        }
+        return false;
+    }
+
+    public Product getProductByName(String productName){
+        return this.repository.getProductByName(productName);
+    }
+
     public boolean isProductIdExist(Long product_id) {
-        return this.repository.existsById(product_id);
+        if (product_id != null) {
+            return this.repository.existsById(product_id);
+        }
+        return false;
     }
 }
