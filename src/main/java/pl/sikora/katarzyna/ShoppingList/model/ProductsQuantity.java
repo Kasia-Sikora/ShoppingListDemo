@@ -28,7 +28,6 @@ public class ProductsQuantity {
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private Long product_id;
 
-    @NotNull
     private int quantity;
 
     private String department;

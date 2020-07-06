@@ -23,7 +23,10 @@ public class ProductsQuantityService {
 
     public void addRecipeProduct(List<ProductsQuantity> productsQuantities, Long recipe_id) {
         UsersRecipe recipe = this.recipeService.getRecipe(recipe_id);
-        for (ProductsQuantity products: productsQuantities) {
+        for (ProductsQuantity products : productsQuantities) {
+            if (products.getUnit() == null) {
+                products.setUnit("");
+            }
             Product product = this.productService.getProductById(products.getProduct_id());
             products.setRecipe(recipe);
             products.setProduct(product);
