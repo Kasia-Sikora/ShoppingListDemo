@@ -1,6 +1,7 @@
 package pl.sikora.katarzyna.ShoppingList.service;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
@@ -24,10 +25,12 @@ public class ShoppingUserService implements UserDetailsService {
 
     private final ShoppingUserRepository repository;
     private final PasswordEncoderInterface passwordEncoder;
+    private final EmailSenderService emailSenderService;
 
-    public ShoppingUserService(ShoppingUserRepository repository, PasswordEncoderInterface passwordEncoder) {
+    public ShoppingUserService(ShoppingUserRepository repository, PasswordEncoderInterface passwordEncoder, EmailSenderService emailSenderService) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
+        this.emailSenderService = emailSenderService;
     }
 
     public List<ShoppingUser> getAllUsers() {
@@ -45,7 +48,9 @@ public class ShoppingUserService implements UserDetailsService {
     public ShoppingUser addUser(ShoppingUser user) {
         if (!checkIfEmailExist(user.getEmail())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            return this.repository.save(user);
+            this.repository.save(user);
+            emailSenderService.setEmail(user);
+            return this.repository.getShoppingUserByEmail(user.getEmail());
         } else {
             throw new DataValidationException("There is already user with this e-mail address");
         }
@@ -80,5 +85,11 @@ public class ShoppingUserService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
         return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
+    }
+
+    public ShoppingUserProjection activateUser(ShoppingUser user) {
+        ShoppingUser existingUser = this.repository.getOne(user.getId());
+        BeanUtils.copyProperties(user, existingUser, "id", "login", "password", "email");
+        return this.repository.saveAndFlush(existingUser);
     }
 }

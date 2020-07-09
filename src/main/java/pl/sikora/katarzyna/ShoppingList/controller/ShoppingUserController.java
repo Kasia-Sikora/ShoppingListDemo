@@ -6,11 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import pl.sikora.katarzyna.ShoppingList.model.ConfirmationToken;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUserProjection;
+import pl.sikora.katarzyna.ShoppingList.repository.ConfirmationTokenRepository;
 import pl.sikora.katarzyna.ShoppingList.service.ShoppingUserService;
 import pl.sikora.katarzyna.ShoppingList.util.errorHandlers.DataValidationException;
-import pl.sikora.katarzyna.ShoppingList.util.security.passwordEncoder.PasswordEncoderInterface;
 
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
@@ -23,10 +24,13 @@ public class ShoppingUserController {
 
     private final ShoppingUserService service;
 
+    ConfirmationTokenRepository confirmationTokenRepository;
+
 
     @Autowired
-    public ShoppingUserController(ShoppingUserService service) {
+    public ShoppingUserController(ShoppingUserService service,    ConfirmationTokenRepository confirmationTokenRepository) {
         this.service = service;
+        this.confirmationTokenRepository = confirmationTokenRepository;
     }
 
     @GetMapping("/users")
@@ -47,6 +51,21 @@ public class ShoppingUserController {
     public ResponseEntity<ShoppingUserProjection> identifySelf(Principal principal) {
         ShoppingUserProjection user = this.service.getUserByEmail(principal.getName());
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/activate")
+    public ResponseEntity confirmUserAccount(@RequestBody String confirmationToken) {
+
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if (token != null) {
+            ShoppingUser user = this.service.getUserByEmail(token.getUser().getEmail());
+            user.setEnabled(true);
+            System.out.println("this user: " + user);
+            System.out.println("this token " + token);
+            return new ResponseEntity(this.service.activateUser(user), HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/users/{user_id}")

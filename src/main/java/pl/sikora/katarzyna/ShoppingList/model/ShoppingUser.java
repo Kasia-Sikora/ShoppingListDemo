@@ -40,6 +40,9 @@ public class ShoppingUser implements ShoppingUserProjection {
     @Email(message = "E-mail must be correct")
     private String email;
 
+    @Column(name = "is_enabled")
+    private boolean isEnabled = false;
+
 
     //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 //    @OnDelete(action = OnDeleteAction.CASCADE)
