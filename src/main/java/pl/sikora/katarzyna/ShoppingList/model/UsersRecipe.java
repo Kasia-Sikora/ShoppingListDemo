@@ -32,7 +32,6 @@ public class UsersRecipe {
     @Column(name = "method")
     private String method;
 
-
     private String picture;
 
     @ToString.Exclude
@@ -43,18 +42,10 @@ public class UsersRecipe {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ShoppingUser recipeOwner;
 
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipe")
     @JsonManagedReference(value = "productsQuantity")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ProductsQuantity> productsQuantity;
-
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipe")
-//    @JsonManagedReference
-//    private List<Product> products = new ArrayList<>();
 
 }
 

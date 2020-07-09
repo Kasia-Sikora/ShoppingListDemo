@@ -15,7 +15,9 @@ public class ProductsQuantityService {
     private final UserRecipeService recipeService;
     private final ProductService productService;
 
-    public ProductsQuantityService(ProductsQuantityRepository repository, UserRecipeService recipeService, ProductService productService) {
+    public ProductsQuantityService(ProductsQuantityRepository repository,
+                                   UserRecipeService recipeService,
+                                   ProductService productService) {
         this.repository = repository;
         this.recipeService = recipeService;
         this.productService = productService;

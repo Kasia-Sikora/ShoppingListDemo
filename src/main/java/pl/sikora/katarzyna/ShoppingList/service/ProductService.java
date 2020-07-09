@@ -18,18 +18,10 @@ public class ProductService {
 
     public Product addProduct(Product product) {
         product.setName(product.getName().toLowerCase());
-        if (!isProductNameExist(product.getName().toLowerCase())) {
+        if (!isProductNameExist(product.getName())) {
             this.repository.save(product);
         }
         return this.repository.getProductByName(product.getName());
-    }
-
-    public List<Product> getAllProducts() {
-        return this.repository.findAll();
-    }
-
-    public Product getProductById(Long productId) {
-        return this.repository.getOne(productId);
     }
 
     public Object editProduct(Product product, Long product_id) {
@@ -42,15 +34,23 @@ public class ProductService {
         this.repository.deleteById(product_id);
     }
 
+    public List<Product> getAllProducts() {
+        return this.repository.findAll();
+    }
+
+    public Product getProductById(Long productId) {
+        return this.repository.getOne(productId);
+    }
+
+    public Product getProductByName(String productName){
+        return this.repository.getProductByName(productName);
+    }
+
     public boolean isProductNameExist(String productName) {
         if (productName != null) {
             return this.repository.existsProductByName(productName);
         }
         return false;
-    }
-
-    public Product getProductByName(String productName){
-        return this.repository.getProductByName(productName);
     }
 
     public boolean isProductIdExist(Long product_id) {

@@ -16,7 +16,8 @@ public class EmailSenderService {
     private final ConfirmationTokenRepository confirmationTokenRepository;
 
     @Autowired
-    public EmailSenderService(JavaMailSender javaMailSender, ConfirmationTokenRepository confirmationTokenRepository) {
+    public EmailSenderService(JavaMailSender javaMailSender,
+                              ConfirmationTokenRepository confirmationTokenRepository) {
         this.javaMailSender = javaMailSender;
         this.confirmationTokenRepository = confirmationTokenRepository;
     }

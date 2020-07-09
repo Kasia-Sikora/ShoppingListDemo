@@ -18,14 +18,11 @@ import java.util.List;
 public class UserRecipeController {
 
     private final UserRecipeService service;
-//    private final RecipeProductService recipeProductService;
 
     @Autowired
     UserRecipeController(UserRecipeService service) {
         this.service = service;
-//        this.recipeProductService = recipeProductService;
     }
-
 
     @GetMapping("/{user_id}/recipes")
     public List<UsersRecipe> getAllUsersRecipes(@PathVariable Long user_id) {
@@ -36,6 +33,7 @@ public class UserRecipeController {
     public List<UsersRecipe> getAllRecipes() {
         return this.service.getAllRecipes();
     }
+
 
     @GetMapping("/{user_id}/recipes/{recipe_id}")
     public ResponseEntity<Object> getRecipe(@PathVariable Long recipe_id, @PathVariable String user_id) {
@@ -48,7 +46,6 @@ public class UserRecipeController {
 
     @PostMapping("/{user_id}/recipes")
     public UsersRecipe addRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long user_id) {
-//        System.out.println("recipe test " + recipe.toString());
         return this.service.addRecipe(recipe, user_id);
     }
 

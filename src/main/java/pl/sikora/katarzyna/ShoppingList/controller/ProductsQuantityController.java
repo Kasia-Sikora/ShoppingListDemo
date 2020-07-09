@@ -15,14 +15,10 @@ import java.util.List;
 public class ProductsQuantityController {
 
     private final ProductsQuantityService service;
-    private final UserRecipeService recipeService;
-    private final ProductService productService;
 
     @Autowired
     ProductsQuantityController(ProductsQuantityService service, UserRecipeService recipeService, ProductService productService) {
         this.service = service;
-        this.recipeService = recipeService;
-        this.productService = productService;
     }
 
     @PostMapping("/{recipe_id}/recipe_products")

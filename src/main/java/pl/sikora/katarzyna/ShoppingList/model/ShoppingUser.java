@@ -40,9 +40,16 @@ public class ShoppingUser implements ShoppingUserProjection {
     @Email(message = "E-mail must be correct")
     private String email;
 
+    @Builder.Default
     @Column(name = "is_enabled")
     private boolean isEnabled = false;
 
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipeOwner")
+    @JsonManagedReference(value = "recipes")
+    private List<UsersRecipe> recipes = new ArrayList<>();
 
     //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 //    @OnDelete(action = OnDeleteAction.CASCADE)
@@ -51,10 +58,4 @@ public class ShoppingUser implements ShoppingUserProjection {
 ////            generator = ObjectIdGenerators.PropertyGenerator.class,
 ////            property = "id")
 //    private List<ShoppingList> shoppingLists = new ArrayList<>();
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipeOwner")
-    @JsonManagedReference(value = "recipes")
-    private List<UsersRecipe> recipes = new ArrayList<>();
-
 }

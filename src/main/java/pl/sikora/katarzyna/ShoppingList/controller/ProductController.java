@@ -10,8 +10,6 @@ import pl.sikora.katarzyna.ShoppingList.service.ProductService;
 import javax.xml.bind.ValidationException;
 import java.util.List;
 
-//TODO add methods after join with recipes table
-
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
 public class ProductController {
@@ -29,18 +27,16 @@ public class ProductController {
     }
 
     //    @GetMapping("/products/{product_id}")
-    public Object getProduct(@PathVariable Long product_id) {
-        if (this.service.isProductIdExist(product_id)) {
-            return this.service.getProductById(product_id);
-        } else {
-            return new ResponseEntity(product_id, HttpStatus.BAD_REQUEST);
-        }
-    }
+//    public Object getProduct(@PathVariable Long product_id) {
+//        if (this.service.isProductIdExist(product_id)) {
+//            return this.service.getProductById(product_id);
+//        } else {
+//            return new ResponseEntity(product_id, HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @PostMapping("/product")
     public Product addProduct(@RequestBody Product product) {
-        System.out.println(product.toString());
-        System.out.println(this.service.addProduct(product));
         return this.service.addProduct(product);
     }
 

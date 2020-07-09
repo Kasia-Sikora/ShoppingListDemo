@@ -24,13 +24,9 @@ public class ShoppingUserController {
 
     private final ShoppingUserService service;
 
-    ConfirmationTokenRepository confirmationTokenRepository;
-
-
     @Autowired
-    public ShoppingUserController(ShoppingUserService service,    ConfirmationTokenRepository confirmationTokenRepository) {
+    public ShoppingUserController(ShoppingUserService service, ConfirmationTokenRepository confirmationTokenRepository) {
         this.service = service;
-        this.confirmationTokenRepository = confirmationTokenRepository;
     }
 
     @GetMapping("/users")
@@ -53,17 +49,10 @@ public class ShoppingUserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping(value="/activate")
+    @PostMapping(value = "/activate")
     public ResponseEntity confirmUserAccount(@RequestBody String confirmationToken) {
-
-        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
-
-        if (token != null) {
-            ShoppingUser user = this.service.getUserByEmail(token.getUser().getEmail());
-            user.setEnabled(true);
-            System.out.println("this user: " + user);
-            System.out.println("this token " + token);
-            return new ResponseEntity(this.service.activateUser(user), HttpStatus.OK);
+        if (this.service.activateUser(confirmationToken) != null) {
+            return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
@@ -77,7 +66,7 @@ public class ShoppingUserController {
     }
 
     @PutMapping("/users/{user_id}")
-    public ResponseEntity<ShoppingUser> editUser(@RequestBody ShoppingUser user, @PathVariable Long user_id){
+    public ResponseEntity<ShoppingUser> editUser(@RequestBody ShoppingUser user, @PathVariable Long user_id) {
         if (this.service.isUserIdExist(user_id)) {
             return new ResponseEntity<>(this.service.editUser(user, user_id), HttpStatus.OK);
         } else {

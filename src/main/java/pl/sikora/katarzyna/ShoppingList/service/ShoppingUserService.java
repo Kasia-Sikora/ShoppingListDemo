@@ -9,8 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.sikora.katarzyna.ShoppingList.model.ConfirmationToken;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUserProjection;
+import pl.sikora.katarzyna.ShoppingList.repository.ConfirmationTokenRepository;
 import pl.sikora.katarzyna.ShoppingList.repository.ShoppingUserRepository;
 import pl.sikora.katarzyna.ShoppingList.util.errorHandlers.DataValidationException;
 import pl.sikora.katarzyna.ShoppingList.util.security.passwordEncoder.PasswordEncoderInterface;
@@ -26,11 +28,16 @@ public class ShoppingUserService implements UserDetailsService {
     private final ShoppingUserRepository repository;
     private final PasswordEncoderInterface passwordEncoder;
     private final EmailSenderService emailSenderService;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public ShoppingUserService(ShoppingUserRepository repository, PasswordEncoderInterface passwordEncoder, EmailSenderService emailSenderService) {
+    public ShoppingUserService(ShoppingUserRepository repository,
+                               PasswordEncoderInterface passwordEncoder,
+                               EmailSenderService emailSenderService,
+                               ConfirmationTokenRepository confirmationTokenRepository) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.emailSenderService = emailSenderService;
+        this.confirmationTokenRepository = confirmationTokenRepository;
     }
 
     public List<ShoppingUser> getAllUsers() {
@@ -87,9 +94,16 @@ public class ShoppingUserService implements UserDetailsService {
         return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }
 
-    public ShoppingUserProjection activateUser(ShoppingUser user) {
-        ShoppingUser existingUser = this.repository.getOne(user.getId());
-        BeanUtils.copyProperties(user, existingUser, "id", "login", "password", "email");
-        return this.repository.saveAndFlush(existingUser);
+    public ShoppingUserProjection activateUser(String confirmationToken) {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if (token != null) {
+            ShoppingUser user = getUserByEmail(token.getUser().getEmail());
+            user.setEnabled(true);
+            ShoppingUser existingUser = this.repository.getOne(user.getId());
+            BeanUtils.copyProperties(user, existingUser, "id", "login", "password", "email");
+            return this.repository.saveAndFlush(existingUser);
+        }
+        return null;
     }
 }

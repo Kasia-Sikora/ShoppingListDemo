@@ -14,15 +14,9 @@ import java.util.Optional;
 @Service
 public class ShoppingListService {
 
-    private ShoppingListRepository repository;
+    private final ShoppingListRepository repository;
 
     public ShoppingListService(ShoppingListRepository repository) {this.repository = repository; }
-
-
-//    public Optional<ShoppingList> getAllShoppingListsByUserId(Long userId) {
-//        return this.repository.findAllByUser_id(userId);
-//    }
-
 
     public void addList(ShoppingList list){
         System.out.println(list);

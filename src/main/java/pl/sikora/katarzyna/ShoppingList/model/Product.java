@@ -30,14 +30,4 @@ public class Product {
 //    @JsonManagedReference(value = "products")
 //    private ShoppingList list;
 
-//    @ToString.Exclude
-////    @EqualsAndHashCode.Exclude
-//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "product")
-//    @JsonManagedReference
-//    private ProductsQuantity productsQuantity;
-
-
-//    public void addProductsQuantityToList(ProductsQuantity productsQuantity){
-//        this.productsQuantity.add(productsQuantity);
-//    }
 }
