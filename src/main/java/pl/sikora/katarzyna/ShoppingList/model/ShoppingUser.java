@@ -1,12 +1,9 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -41,8 +38,8 @@ public class ShoppingUser implements ShoppingUserProjection {
     private String email;
 
     @Builder.Default
-    @Column(name = "is_enabled")
-    private boolean isEnabled = false;
+    @Column(name = "is_verified")
+    private boolean isVerified = false;
 
     @Builder.Default
     @ToString.Exclude

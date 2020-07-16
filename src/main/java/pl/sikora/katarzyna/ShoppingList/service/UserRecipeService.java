@@ -2,6 +2,7 @@ package pl.sikora.katarzyna.ShoppingList.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import pl.sikora.katarzyna.ShoppingList.model.ProductsQuantity;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
 import pl.sikora.katarzyna.ShoppingList.repository.UsersRecipeRepository;
@@ -36,6 +37,7 @@ public class UserRecipeService {
 
     public UsersRecipe editRecipe(UsersRecipe recipe, Long recipe_id) {
         UsersRecipe existingRecipe = this.repository.getOne(recipe_id);
+        existingRecipe.setProductsQuantity(null);
         BeanUtils.copyProperties(recipe, existingRecipe, "id", "recipeOwner");
         return this.repository.saveAndFlush(existingRecipe);
     }

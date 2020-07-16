@@ -1,9 +1,6 @@
 package pl.sikora.katarzyna.ShoppingList.service;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +17,6 @@ import pl.sikora.katarzyna.ShoppingList.util.security.passwordEncoder.PasswordEn
 import javax.xml.bind.ValidationException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ShoppingUserService implements UserDetailsService {
@@ -99,7 +95,7 @@ public class ShoppingUserService implements UserDetailsService {
 
         if (token != null) {
             ShoppingUser user = getUserByEmail(token.getUser().getEmail());
-            user.setEnabled(true);
+            user.setVerified(true);
             ShoppingUser existingUser = this.repository.getOne(user.getId());
             BeanUtils.copyProperties(user, existingUser, "id", "login", "password", "email");
             return this.repository.saveAndFlush(existingUser);

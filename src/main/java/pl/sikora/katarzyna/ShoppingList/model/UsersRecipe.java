@@ -42,9 +42,8 @@ public class UsersRecipe {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ShoppingUser recipeOwner;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe")
     @JsonManagedReference(value = "productsQuantity")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ProductsQuantity> productsQuantity;
 
 }

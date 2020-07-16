@@ -17,12 +17,13 @@ public class ProductsQuantityController {
     private final ProductsQuantityService service;
 
     @Autowired
-    ProductsQuantityController(ProductsQuantityService service, UserRecipeService recipeService, ProductService productService) {
+    ProductsQuantityController(ProductsQuantityService service) {
         this.service = service;
     }
 
     @PostMapping("/{recipe_id}/recipe_products")
     public void addProductQuantity(@RequestBody List<ProductsQuantity> productsQuantities, @PathVariable Long recipe_id) {
+        this.service.removeIfExist(recipe_id);
         this.service.addRecipeProduct(productsQuantities, recipe_id);
     }
 

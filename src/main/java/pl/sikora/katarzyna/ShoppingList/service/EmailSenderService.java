@@ -34,10 +34,14 @@ public class EmailSenderService {
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
-        mailMessage.setSubject("Potwierdzenie rejestracji");
+        mailMessage.setSubject("Potwierdzenie rejestracji konta");
         mailMessage.setFrom("contact.office.foodstuff@gmail.com");
-        mailMessage.setText("Aby potwierdzić rejestrację, proszę kliknąć w ten link : "
-                +"http://localhost:4200/activate;token="+confirmationToken.getConfirmationToken());
+        mailMessage.setText("Dziękujemy za rejestrację na naszym portalu! \nTwoja rejestracja na stronie foodstuff.katarzynasikora.pl przebiega pomyślnie! \n" +
+                "\nMożesz już zarządzać własnymi przepisami szybciej i wygodniej. \n" +
+                "\nAby potwierdzić rejestrację, proszę kliknąć w ten link : "
+                +"http://localhost:4200/activate;token="+confirmationToken.getConfirmationToken() +
+                "\n Pozdrawiamy serdecznie. \n " +
+                "Zespół foodstuff :) ");
 
         sendEmail(mailMessage);
     }

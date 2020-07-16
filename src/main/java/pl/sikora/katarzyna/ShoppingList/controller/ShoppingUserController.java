@@ -46,7 +46,10 @@ public class ShoppingUserController {
     @GetMapping("/me")
     public ResponseEntity<ShoppingUserProjection> identifySelf(Principal principal) {
         ShoppingUserProjection user = this.service.getUserByEmail(principal.getName());
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        if(user.isVerified()) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        throw new DataValidationException("Please verify your account via e-mail");
     }
 
     @PostMapping(value = "/activate")

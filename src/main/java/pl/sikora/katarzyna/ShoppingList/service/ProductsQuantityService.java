@@ -6,8 +6,10 @@ import pl.sikora.katarzyna.ShoppingList.model.ProductsQuantity;
 import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
 import pl.sikora.katarzyna.ShoppingList.repository.ProductsQuantityRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 @Service
 public class ProductsQuantityService {
 
@@ -39,5 +41,12 @@ public class ProductsQuantityService {
 
     public List<ProductsQuantity> getRecipeProducts(Long recipe_id) {
         return this.repository.getProductsQuantitiesByRecipeId(recipe_id);
+    }
+
+    public void removeIfExist(Long recipe_id) {
+        List <ProductsQuantity> products = this.repository.getProductsQuantitiesByRecipeId(recipe_id);
+        for(ProductsQuantity product: products){
+            this.repository.deleteById(product.getId());
+        }
     }
 }

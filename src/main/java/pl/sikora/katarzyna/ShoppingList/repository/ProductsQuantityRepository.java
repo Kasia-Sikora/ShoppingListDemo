@@ -9,4 +9,12 @@ import java.util.List;
 public interface ProductsQuantityRepository extends JpaRepository<ProductsQuantity, Long> {
 
     List<ProductsQuantity> getProductsQuantitiesByRecipeId(Long recipe_id);
+
+    void deleteProductsQuantitiesByRecipeId(Long recipe_id);
+
+    void deleteProductsQuantityById(Long id);
+
+    boolean findProductsQuantityByRecipeId(Long recipe_id);
+
+    ProductsQuantity getDistinctTopByRecipeId(Long recipe_id);
 }

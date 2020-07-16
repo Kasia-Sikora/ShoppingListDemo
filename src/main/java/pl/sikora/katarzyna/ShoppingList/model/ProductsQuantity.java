@@ -21,21 +21,20 @@ public class ProductsQuantity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     private String unit;
 
     @Transient
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private Long product_id;
 
-    private int quantity;
+    private float quantity;
 
     private String department;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne
-    @JoinColumn(name = "user_recipe_id", nullable = false, updatable = false)
+    @JoinColumn(name = "user_recipe_id", updatable = false)
     @JsonBackReference(value = "productsQuantity")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UsersRecipe recipe;
