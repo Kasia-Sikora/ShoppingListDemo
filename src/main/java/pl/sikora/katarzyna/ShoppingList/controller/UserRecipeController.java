@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//import pl.sikora.katarzyna.ShoppingList.model.RecipeProduct;
-import pl.sikora.katarzyna.ShoppingList.model.Product;
 import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
-//import pl.sikora.katarzyna.ShoppingList.service.RecipeProductService;
 import pl.sikora.katarzyna.ShoppingList.service.UserRecipeService;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})

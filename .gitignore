@@ -33,3 +33,5 @@ application-prod.properties
 .mvn/
 mvnw
 mvnw.cmd
+.sql/
+src/main/sql

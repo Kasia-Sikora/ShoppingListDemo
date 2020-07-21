@@ -1,12 +1,10 @@
 package pl.sikora.katarzyna.ShoppingList.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import pl.sikora.katarzyna.ShoppingList.model.ProductsQuantity;
-import pl.sikora.katarzyna.ShoppingList.service.ProductService;
 import pl.sikora.katarzyna.ShoppingList.service.ProductsQuantityService;
-import pl.sikora.katarzyna.ShoppingList.service.UserRecipeService;
 
 import java.util.List;
 

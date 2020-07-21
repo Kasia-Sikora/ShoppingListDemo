@@ -1,5 +1,6 @@
 package pl.sikora.katarzyna.ShoppingList.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sikora.katarzyna.ShoppingList.model.Product;
 import pl.sikora.katarzyna.ShoppingList.model.ProductsQuantity;
@@ -17,6 +18,7 @@ public class ProductsQuantityService {
     private final UserRecipeService recipeService;
     private final ProductService productService;
 
+    @Autowired
     public ProductsQuantityService(ProductsQuantityRepository repository,
                                    UserRecipeService recipeService,
                                    ProductService productService) {

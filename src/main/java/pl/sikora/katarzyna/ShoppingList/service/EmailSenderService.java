@@ -39,7 +39,7 @@ public class EmailSenderService {
         mailMessage.setText("Dziękujemy za rejestrację na naszym portalu! \nTwoja rejestracja na stronie foodstuff.katarzynasikora.pl przebiega pomyślnie! \n" +
                 "\nMożesz już zarządzać własnymi przepisami szybciej i wygodniej. \n" +
                 "\nAby potwierdzić rejestrację, proszę kliknąć w ten link : "
-                +"http://localhost:4200/activate;token="+confirmationToken.getConfirmationToken() +
+                +"http://foodstuff.sikorakatarzyna.pl/activate;token="+confirmationToken.getConfirmationToken() +
                 "\n Pozdrawiamy serdecznie. \n " +
                 "Zespół foodstuff :) ");
 

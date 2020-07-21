@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import pl.sikora.katarzyna.ShoppingList.model.ConfirmationToken;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUserProjection;
 import pl.sikora.katarzyna.ShoppingList.repository.ConfirmationTokenRepository;
@@ -46,7 +45,7 @@ public class ShoppingUserController {
     @GetMapping("/me")
     public ResponseEntity<ShoppingUserProjection> identifySelf(Principal principal) {
         ShoppingUserProjection user = this.service.getUserByEmail(principal.getName());
-        if(user.isVerified()) {
+        if (user.isVerified()) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         throw new DataValidationException("Please verify your account via e-mail");
