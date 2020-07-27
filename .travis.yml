@@ -2,4 +2,5 @@ language: java
 jdk: oraclejdk11
 
 script:
+  - mvn clean install
   - bash <(curl -s https://codecov.io/bash)
