@@ -3,7 +3,12 @@ jdk: oraclejdk11
 
 install: true
 
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+
 script:
   - mvn test
   - bash <(curl -s https://codecov.io/bash)
 
+services:
+  - postgresql
