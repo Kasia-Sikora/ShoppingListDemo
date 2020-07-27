@@ -35,3 +35,4 @@ mvnw
 mvnw.cmd
 .sql/
 src/main/sql
+codecov.yml
