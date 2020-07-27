@@ -4,6 +4,6 @@ jdk: oraclejdk11
 install: true
 
 script:
-  - mvn clean
+  - mvn test
   - bash <(curl -s https://codecov.io/bash)
 
