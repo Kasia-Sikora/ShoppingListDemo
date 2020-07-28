@@ -2,10 +2,9 @@ package pl.sikora.katarzyna.ShoppingList.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,10 +24,13 @@ public class ShoppingList {
 
     Long shopping_list_id;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id", nullable = false)
-//    @JsonManagedReference
-//    private ShoppingUser user;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    @JsonBackReference(value = "shoppingList")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ShoppingUser listOwner;
 
 //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "list")
 //    @JsonBackReference(value = "products")

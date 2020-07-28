@@ -1,12 +1,12 @@
 package pl.sikora.katarzyna.ShoppingList.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -23,11 +23,4 @@ public class Product {
     @NotNull
     @Column(name = "product_name")
     private String name;
-
-
-    //    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "product_id", nullable = false)
-//    @JsonManagedReference(value = "products")
-//    private ShoppingList list;
-
 }

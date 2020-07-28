@@ -48,11 +48,10 @@ public class ShoppingUser implements ShoppingUserProjection {
     @JsonManagedReference(value = "recipes")
     private List<UsersRecipe> recipes = new ArrayList<>();
 
-    //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JsonBackReference
-////    @JsonIdentityInfo(
-////            generator = ObjectIdGenerators.PropertyGenerator.class,
-////            property = "id")
-//    private List<ShoppingList> shoppingLists = new ArrayList<>();
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "listOwner")
+    @JsonManagedReference(value = "listOwner")
+    private List<ShoppingList> shoppingLists = new ArrayList<>();
 }
