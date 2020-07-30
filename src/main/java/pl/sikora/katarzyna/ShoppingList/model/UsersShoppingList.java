@@ -11,18 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "shopping_lists")
+@Table(name = "users_shopping_lists")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingList {
+public class UsersShoppingList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Long shopping_list_id;
+    String title;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -32,7 +32,10 @@ public class ShoppingList {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ShoppingUser listOwner;
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "list")
-//    @JsonBackReference(value = "products")
-//    private List<Product> products = new ArrayList<>();
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "list")
+    @JsonManagedReference(value = "list")
+    private List<ShoppingListProducts> products = new ArrayList<>();
 }
