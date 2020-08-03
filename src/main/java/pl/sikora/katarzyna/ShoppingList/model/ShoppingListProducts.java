@@ -20,7 +20,7 @@ public class ShoppingListProducts {
     private Long id;
 
     @Column(name = "product_name")
-    String productName;
+    String product_name;
 
     String unit;
 

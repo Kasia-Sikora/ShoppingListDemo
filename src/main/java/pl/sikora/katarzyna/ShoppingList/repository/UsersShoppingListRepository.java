@@ -10,4 +10,8 @@ import java.util.List;
 public interface UsersShoppingListRepository extends JpaRepository<UsersShoppingList, Long> {
 
     List<UsersShoppingList> findAllByListOwnerId(Long id);
+
+    boolean existsByListOwnerIdAndTitle(Long id, String title);
+
+    UsersShoppingList getByListOwnerIdAndTitle(Long userId, String title);
 }

@@ -21,18 +21,17 @@ public class UsersShoppingListController {
         this.service = service;
     }
 
-    @GetMapping("/{user_id}/shopping-lists")
+    @GetMapping("/{user_id}/shopping-list")
     public List<UsersShoppingList> getAllUsersShoppingLists(@PathVariable Long user_id) {
         return this.service.findAllByUserId(user_id);
     }
 
-//    @PostMapping("/lists")
-    public void addShoppingList(@RequestBody UsersShoppingList list) {
-        System.out.println(list);
-        this.service.addList(list);
+    @PostMapping("/{user_id}/shopping-list")
+    public UsersShoppingList addShoppingList(@PathVariable Long user_id, @RequestBody UsersShoppingList list) {
+        return this.service.addList(list, user_id);
     }
 
-//    @DeleteMapping("/lists/{id}")
+    @DeleteMapping("/{user_id}/shopping-list/{id}")
     public void deleteShoppingList(@PathVariable Long id) {
         this.service.deleteList(id);
     }
