@@ -24,7 +24,7 @@ public class ShoppingUserController {
     private final ShoppingUserService service;
 
     @Autowired
-    public ShoppingUserController(ShoppingUserService service, ConfirmationTokenRepository confirmationTokenRepository) {
+    public ShoppingUserController(ShoppingUserService service) {
         this.service = service;
     }
 

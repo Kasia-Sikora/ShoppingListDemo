@@ -34,6 +34,8 @@ public class UsersRecipe {
 
     private String picture;
 
+    private boolean is_favourite = false;
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)

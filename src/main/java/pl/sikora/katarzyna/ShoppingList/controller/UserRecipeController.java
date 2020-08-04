@@ -34,7 +34,7 @@ public class UserRecipeController {
 
 
     @GetMapping("/{user_id}/recipes/{recipe_id}")
-    public ResponseEntity<Object> getRecipe(@PathVariable Long recipe_id, @PathVariable String user_id) {
+    public ResponseEntity<Object> getRecipe(@PathVariable Long recipe_id, @PathVariable Long user_id) {
         if (this.service.isRecipeIdExist(recipe_id)) {
             return new ResponseEntity<>(this.service.getRecipe(recipe_id), HttpStatus.OK);
         } else {
@@ -48,7 +48,7 @@ public class UserRecipeController {
     }
 
     @PutMapping("/{user_id}/recipes/{recipe_id}")
-    public ResponseEntity<UsersRecipe> editRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long recipe_id, @PathVariable String user_id) throws ValidationException {
+    public ResponseEntity<UsersRecipe> editRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long recipe_id, @PathVariable Long user_id){
         System.out.println(recipe);
         if (this.service.isRecipeIdExist(recipe_id)) {
             return new ResponseEntity<>(this.service.editRecipe(recipe, recipe_id), HttpStatus.OK);

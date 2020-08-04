@@ -13,4 +13,6 @@ public interface UsersRecipeRepository extends JpaRepository<UsersRecipe, Long> 
     List<UsersRecipe> findAllByRecipeOwnerId(Long userId);
 
     boolean existsByRecipeOwnerId(Long userId);
+
+    UsersRecipe getById(Long recipeId);
 }
