@@ -2,16 +2,13 @@ package pl.sikora.katarzyna.ShoppingList.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.sikora.katarzyna.ShoppingList.model.UsersRecipe;
 import pl.sikora.katarzyna.ShoppingList.model.UsersShoppingList;
 import pl.sikora.katarzyna.ShoppingList.service.UsersShoppingListService;
 
 import java.util.List;
 
-
-//TODO add methods after join users table and products table
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
 public class UsersShoppingListController {
 
     private final UsersShoppingListService service;

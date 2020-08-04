@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
 public class UserRecipeController {
 
     private final UserRecipeService service;
@@ -26,11 +26,6 @@ public class UserRecipeController {
     public List<UsersRecipe> getAllUsersRecipes(@PathVariable Long user_id) {
         return this.service.findAllByUserId(user_id);
     }
-
-//    @GetMapping("/recipes")
-//    public List<UsersRecipe> getAllRecipes() {
-//        return this.service.getAllRecipes();
-//    }
 
 
     @GetMapping("/{user_id}/recipes/{recipe_id}")
