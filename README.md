@@ -40,7 +40,7 @@ The website can be viewed here: [Foodstuff Website](http://foodstuff.sikorakatar
  <li>Generating shopping lists</li>
 </ul>
 
-<h2>Plans for the future :</h2>
+<h2>Plans:</h2>
 <ul>
 	<li>Generating a shopping list based on a given number of servings</li>
 	<li>Share the list with other users</li>
