@@ -17,7 +17,7 @@ The website can be viewed here: [Foodstuff Website](http://foodstuff.sikorakatar
 		<li>Security - JWT</li>
 		<li>Testing with Junit</li>
 	</ul>
-	<li>Deepening knowledge in PostreSQL</li>
+	<li>Deepening knowledge about PostreSQL</li>
 	<li>Server support:</li>
 	<ul>
 		<li>Nginx</li>
