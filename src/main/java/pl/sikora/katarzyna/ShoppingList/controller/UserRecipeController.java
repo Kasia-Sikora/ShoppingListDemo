@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
 public class UserRecipeController {
 
     private final UserRecipeService service;
@@ -27,14 +27,9 @@ public class UserRecipeController {
         return this.service.findAllByUserId(user_id);
     }
 
-//    @GetMapping("/recipes")
-//    public List<UsersRecipe> getAllRecipes() {
-//        return this.service.getAllRecipes();
-//    }
-
 
     @GetMapping("/{user_id}/recipes/{recipe_id}")
-    public ResponseEntity<Object> getRecipe(@PathVariable Long recipe_id, @PathVariable String user_id) {
+    public ResponseEntity<Object> getRecipe(@PathVariable Long recipe_id, @PathVariable Long user_id) {
         if (this.service.isRecipeIdExist(recipe_id)) {
             return new ResponseEntity<>(this.service.getRecipe(recipe_id), HttpStatus.OK);
         } else {
@@ -48,7 +43,7 @@ public class UserRecipeController {
     }
 
     @PutMapping("/{user_id}/recipes/{recipe_id}")
-    public ResponseEntity<UsersRecipe> editRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long recipe_id, @PathVariable String user_id) throws ValidationException {
+    public ResponseEntity<UsersRecipe> editRecipe(@RequestBody UsersRecipe recipe, @PathVariable Long recipe_id, @PathVariable Long user_id){
         System.out.println(recipe);
         if (this.service.isRecipeIdExist(recipe_id)) {
             return new ResponseEntity<>(this.service.editRecipe(recipe, recipe_id), HttpStatus.OK);

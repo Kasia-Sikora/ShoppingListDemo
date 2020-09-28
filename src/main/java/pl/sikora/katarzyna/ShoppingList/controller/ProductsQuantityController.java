@@ -1,7 +1,6 @@
 package pl.sikora.katarzyna.ShoppingList.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import pl.sikora.katarzyna.ShoppingList.model.ProductsQuantity;
 import pl.sikora.katarzyna.ShoppingList.service.ProductsQuantityService;
@@ -9,7 +8,7 @@ import pl.sikora.katarzyna.ShoppingList.service.ProductsQuantityService;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
 public class ProductsQuantityController {
 
     private final ProductsQuantityService service;

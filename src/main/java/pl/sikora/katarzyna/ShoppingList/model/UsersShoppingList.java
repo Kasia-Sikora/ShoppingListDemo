@@ -7,47 +7,35 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
-@Table(name = "users_recipes")
-@Data
+@Table(name = "users_shopping_lists")
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersRecipe {
+public class UsersShoppingList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    Long id;
 
-    @NotNull
-    private String title;
-
-    @NotNull
-    @Column(name = "method")
-    private String method;
-
-    private String picture;
-
-    private boolean is_favourite = false;
+    String title;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    @JsonBackReference(value = "recipes")
+    @JsonBackReference(value = "shoppingList")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private ShoppingUser recipeOwner;
+    private ShoppingUser listOwner;
 
-    @OneToMany(mappedBy = "recipe")
-    @JsonManagedReference(value = "productsQuantity")
-    private List<ProductsQuantity> productsQuantity;
-
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "list")
+    @JsonManagedReference(value = "list")
+    private List<ShoppingListProducts> products = new ArrayList<>();
 }
-
-

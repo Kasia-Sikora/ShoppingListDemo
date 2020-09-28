@@ -8,7 +8,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUser;
 import pl.sikora.katarzyna.ShoppingList.model.ShoppingUserProjection;
-import pl.sikora.katarzyna.ShoppingList.repository.ConfirmationTokenRepository;
 import pl.sikora.katarzyna.ShoppingList.service.ShoppingUserService;
 import pl.sikora.katarzyna.ShoppingList.util.errorHandlers.DataValidationException;
 
@@ -18,13 +17,13 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
 public class ShoppingUserController {
 
     private final ShoppingUserService service;
 
     @Autowired
-    public ShoppingUserController(ShoppingUserService service, ConfirmationTokenRepository confirmationTokenRepository) {
+    public ShoppingUserController(ShoppingUserService service) {
         this.service = service;
     }
 

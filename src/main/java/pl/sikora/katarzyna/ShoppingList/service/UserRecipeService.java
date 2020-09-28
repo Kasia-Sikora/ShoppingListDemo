@@ -28,7 +28,7 @@ public class UserRecipeService {
     }
 
     public UsersRecipe getRecipe(Long id) {
-        return this.repository.getOne(id);
+        return this.repository.getById(id);
     }
 
     public List<UsersRecipe> getAllRecipes(){

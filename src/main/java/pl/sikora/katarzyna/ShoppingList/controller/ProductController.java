@@ -11,7 +11,7 @@ import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://foodstuff.sikorakatarzyna.pl", "http://www.foodstuff.sikorakatarzyna.pl", "www.foodstuff.sikorakatarzyna.pl"})
 public class ProductController {
 
     private final ProductService service;
@@ -26,24 +26,15 @@ public class ProductController {
         return this.service.getAllProducts();
     }
 
-    //    @GetMapping("/products/{product_id}")
-//    public Object getProduct(@PathVariable Long product_id) {
-//        if (this.service.isProductIdExist(product_id)) {
-//            return this.service.getProductById(product_id);
-//        } else {
-//            return new ResponseEntity(product_id, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
     @PostMapping("/product")
     public Product addProduct(@RequestBody Product product) {
         return this.service.addProduct(product);
     }
 
     @PutMapping("/products/{product_id}")
-    public ResponseEntity<Product> editProduct(@RequestBody Product product, @PathVariable Long product_id) throws ValidationException {
+    public ResponseEntity<Product> editProduct(@RequestBody Product product, @PathVariable Long product_id){
         if (this.service.isProductIdExist(product_id)) {
-            return new ResponseEntity(this.service.editProduct(product, product_id), HttpStatus.OK);
+            return new ResponseEntity<>(this.service.editProduct(product, product_id), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(product, HttpStatus.BAD_REQUEST);
         }

@@ -24,7 +24,7 @@ public class ProductService {
         return this.repository.getProductByName(product.getName());
     }
 
-    public Object editProduct(Product product, Long product_id) {
+    public Product editProduct(Product product, Long product_id) {
         Product existingProduct = this.repository.getOne(product_id);
         BeanUtils.copyProperties(product, existingProduct, "id");
         return this.repository.saveAndFlush(existingProduct);

@@ -41,8 +41,8 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test getAllUsers Success")
     void test_getAllUsers() {
-        ShoppingUser user1 = new ShoppingUser((long) 1, "Kasia", "Katarzyna", "kasia@kasia.com", false, null);
-        ShoppingUser user2 = new ShoppingUser((long) 2, "Piotr", "piotrek", "piotr@piotr.com", false, null);
+        ShoppingUser user1 = new ShoppingUser((long) 1, "Kasia", "Katarzyna", "kasia@kasia.com", false, null, null);
+        ShoppingUser user2 = new ShoppingUser((long) 2, "Piotr", "piotrek", "piotr@piotr.com", false, null, null);
         Mockito.doReturn(Arrays.asList(user1, user2)).when(repository).findAll();
 
         List<ShoppingUser> users = service.getAllUsers();
@@ -52,7 +52,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test getById Success")
     void test_getUserById_Success() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         Mockito.doReturn(mockUser).when(repository).getShoppingUserById((long) 1);
 
         ShoppingUser returnedUser = service.getUserById((long) 1);
@@ -74,7 +74,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test getUserByEmail Success")
     void testGetUserByEmail_Success() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         Mockito.doReturn(mockUser).when(repository).getShoppingUserByEmail("kasia@kasia.com");
         ShoppingUser returnedUser = service.getUserByEmail("kasia@kasia.com");
 
@@ -85,7 +85,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test getUserByEmail Failed")
     void testGetUserByEmail_Failed() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         Mockito.doReturn(null).when(repository).getShoppingUserByEmail("kasia@kasia.com");
         ShoppingUser returnedUser = service.getUserByEmail("kasia@kasia.com");
 
@@ -95,7 +95,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test addUser Success")
     void test_addUser_Success() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         Mockito.doReturn(mockUser).when(repository).save(mockUser);
         Mockito.doReturn(mockUser).when(repository).getShoppingUserByEmail("kasia@kasia.com");
 
@@ -107,7 +107,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test addUser Failed")
     void test_addUser_Failed() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         Mockito.doReturn(true).when(repository).existsShoppingUserByEmail("kasia@kasia.com");
 
         Exception exception = assertThrows(DataValidationException.class, () -> {
@@ -122,8 +122,8 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test editUser Success")
     void test_editUser_success() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
-        ShoppingUser mockUser1 = new ShoppingUser((long) 1, "Kasia1", "kasia1", "kasia1@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
+        ShoppingUser mockUser1 = new ShoppingUser((long) 1, "Kasia1", "kasia1", "kasia1@kasia.com", false, null, null);
         Mockito.doReturn(mockUser).when(repository).getOne((long) 1);
         Mockito.doReturn(mockUser).when(repository).saveAndFlush(mockUser);
 
@@ -135,7 +135,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test deleteUser Success")
     void testDeleteUser_Success() throws ValidationException {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         Mockito.doReturn(mockUser).when(repository).saveAndFlush(mockUser);
         Mockito.doReturn(true).when(repository).existsById((long) 1);
 
@@ -160,7 +160,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test loadUserByUsername Success")
     void test_loadUserByUsername_Success() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         Mockito.doReturn(mockUser).when(repository).getShoppingUserByEmail("kasia@kasia.com");
 
         Assertions.assertEquals(service.loadUserByUsername(mockUser.getEmail()), new User(mockUser.getEmail(), mockUser.getPassword(), Collections.emptyList()));
@@ -169,7 +169,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test deleteUser Throw UsernameNotFoundException")
     void test_loadUserByUsername_ThrowsException() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         Mockito.doReturn(null).when(repository).getShoppingUserByEmail("kasia@kasia.com");
 
         Assertions.assertThrows(UsernameNotFoundException.class, () -> {
@@ -180,7 +180,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test activateUser Success")
     void activateUser() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         ConfirmationToken token = new ConfirmationToken(mockUser);
         Mockito.doReturn(mockUser).when(repository).getShoppingUserByEmail("kasia@kasia.com");
         tokenRepository.save(token);
@@ -198,7 +198,7 @@ class ShoppingUserServiceTest {
     @Test
     @DisplayName("Test activateUser Null")
     void test_activateUser_ReturnNull() {
-        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null);
+        ShoppingUser mockUser = new ShoppingUser((long) 1, "Kasia", "kasia", "kasia@kasia.com", false, null, null);
         ConfirmationToken token = new ConfirmationToken(mockUser);
         Mockito.doReturn(mockUser).when(repository).getShoppingUserByEmail("kasia@kasia.com");
         tokenRepository.save(token);
